@@ -16,7 +16,17 @@ minut_a = minut // 10
 # вторая цифра в минутах
 minut_b = minut % 10
 
+# дальше также работаем с секундами
+# сколько всего получилось секунд
+secund = secund_input % 60
+
+# первая цифра в минутах
+secund_a = secund // 10
+
+# вторая цифра в минутах
+secund_b = secund % 10
+
 # сколько секунд прошло - остаток от деления на 3600
 result_secund = secund_input % 60
 
-print(result_hours, ':', minut_a, minut_b, ':', result_secund, sep='')
+print(result_hours, ':', minut_a, minut_b, ':', secund_a, secund_b, sep='')
