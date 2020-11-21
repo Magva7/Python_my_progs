@@ -1,7 +1,7 @@
 import time, pyglet  # подключаем модули
 
-set_min = 0.1
-# set_min = int(input())  # количество минут, которое вводим
+# set_min = 0.1
+set_min = int(input())  # количество минут, которое вводим
 set_sec = set_min * 60
 
 while set_sec != 0:
@@ -15,6 +15,7 @@ while set_sec != 0:
 print('Пыпыньк =)')
 
 # как цикл выполнился, т.е. дошло до 0, выводим музон
-song = pyglet.media.load('C:/Windows/Media/tada.wav')
+song = pyglet.media.load('../media/komon.mp3')
+# song = pyglet.media.load('C:/Windows/Media/tada.wav')
 song.play()
 pyglet.app.run()
