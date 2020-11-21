@@ -1,6 +1,7 @@
 import time, pyglet  # подключаем модули
 
 # set_min = 0.1
+print('Введите количество минут: ', end='')
 set_min = int(input())  # количество минут, которое вводим
 set_sec = set_min * 60
 
