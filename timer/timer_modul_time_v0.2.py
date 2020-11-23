@@ -17,7 +17,7 @@ while set_sec != 0:
 print('Пыпыньк =)')
 
 # как цикл выполнился, т.е. дошло до 0, выводим музон
-song = pyglet.media.load('../media/komon.mp3')
-# song = pyglet.media.load('C:/Windows/Media/tada.wav')
+# song = pyglet.media.load('../media/komon.mp3')
+song = pyglet.media.load('C:/Windows/Media/tada.wav')
 song.play()
 pyglet.app.run()
