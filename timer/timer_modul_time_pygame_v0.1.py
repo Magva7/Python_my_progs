@@ -1,5 +1,8 @@
-import time  # подключаем модули
+import time
+
 import pyglet
+
+pyglet  # подключаем модули
 
 # set_min = 0.1
 print('Введите количество минут: ', end='')
