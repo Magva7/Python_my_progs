@@ -19,10 +19,8 @@ print('Сейчас:')
 print("Видимость:", data['list'][0]['weather'][0]['description'])  # выбираем в массиве первый элемент - 0 и из него вытаскиваем значение полей, которые надо
 print('Ветрина:', data['list'][0]['wind']['speed'], 'м/с')
 print("За бортом:", data['list'][0]['main']['temp'], 'по цельсию')
-
-# print('Завтра:')
-# print(zavtra_data['weather'][0]['description'])
-# print( i['dt_txt'], '{0:+3.0f}'.format(i['main']['temp']), i['weather'][0]['description'])
-
-# for i in zavtra_data['list']:
-#     print( i['dt_txt'], '{0:+3.0f}'.format(i['main']['temp']), i['weather'][0]['description'])
+print('')
+print('Завтра:', data['list'][1]['main']['temp'], 'по цельсию')
+# print("Видимость:", data['list'][1]['weather'][0]['description'])  # выбираем в массиве первый элемент - 0 и из него вытаскиваем значение полей, которые надо
+# print('Ветрина:', data['list'][1]['wind']['speed'], 'м/с')
+# print("За бортом:", data['list'][1]['main']['temp'], 'по цельсию')
