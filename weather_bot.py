@@ -1,5 +1,5 @@
 import requests
-
+# import pytelegrambotapi
 import telebot
 
 # appid = "2745926c9f2ffb7903aec82510e1bc65"  # мой id
@@ -69,7 +69,7 @@ def get_text_messages(message):
         bot.send_message(message.from_user.id, "Тута будет помощь")
     elif message.text.lower() == "да" or "угу" or 'давай' or 'можно' or 'кажи' or 'ок' or 'ok':
         bot.send_message(message.from_user.id, pogoda())
-        print(message.from_user.first_name, '-', message.from_user.id)
+        print('Кто написал:', message.from_user.first_name, '-', message.from_user.id, 'что написал:', message.text)
     elif message.text.lower() == "погода":
         bot.send_message(message.from_user.id, pogoda())
     else:
