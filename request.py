@@ -1,5 +1,5 @@
 import requests
-# import pytelegrambotapi
+
 import telebot
 
 # appid = "2745926c9f2ffb7903aec82510e1bc65"  # мой id
@@ -7,14 +7,9 @@ import telebot
 # отправляем запрос и записываем ответ от сервера в переменную, там данные по погоде на сейчас
 res = requests.get('https://api.openweathermap.org/data/2.5/forecast?id=524901&appid=2745926c9f2ffb7903aec82510e1bc65&units=metric&lang=RU')
 
-data = res.json()  # Записываем в переменую пакет JSON, который получили - в ней есть поля и их значения
-
-# отправляем запрос и записываем ответ от сервера в переменную, там данные по погоде на следующие дни
-# zavtra_res = requests.get('https://api.openweathermap.org/data/2.5/forecast?id=524901&appid=2745926c9f2ffb7903aec82510e1bc65&units=metric&lang=RU')
-# zavtra_data = today_res.json()  # Записываем в переменую пакет JSON, который получили - в ней есть поля и их значения
+data = res.json()  # Записываем в переменую пакет JSON, который получили - в нем есть поля и их значения
 
 # print(result.text)  # тестовый вывод - смотрим, что нам вернул сайт
-
 
 # получаем нужные значения по названиям полей и печатаем погоду
 def pogoda():
@@ -74,8 +69,7 @@ def get_text_messages(message):
         bot.send_message(message.from_user.id, "Тута будет помощь")
     elif message.text.lower() == "да" or "угу" or 'давай' or 'можно' or 'кажи' or 'ок' or 'ok':
         bot.send_message(message.from_user.id, pogoda())
-        print(message.from_user.first_name)
-        print(message.from_user.id)
+        print(message.from_user.first_name, '-', message.from_user.id)
     elif message.text.lower() == "погода":
         bot.send_message(message.from_user.id, pogoda())
     else:
