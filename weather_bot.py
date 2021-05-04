@@ -1,18 +1,31 @@
 import requests
 # import pytelegrambotapi
 import telebot
+# import time
+# while True:
+#     time.sleep(60)
+
+    #возможно стоит писать await asyncio.sleep(60)
 
 # appid = "2745926c9f2ffb7903aec82510e1bc65"  # мой id
 
-# отправляем запрос и записываем ответ от сервера в переменную, там данные по погоде на сейчас
-res = requests.get('https://api.openweathermap.org/data/2.5/forecast?id=524901&appid=2745926c9f2ffb7903aec82510e1bc65&units=metric&lang=RU')
+#посылаем запрос раз в 10 минут, чтобы данные свежие были
 
-data = res.json()  # Записываем в переменую пакет JSON, который получили - в нем есть поля и их значения
+
+
+
+
 
 # print(result.text)  # тестовый вывод - смотрим, что нам вернул сайт
 
 # получаем нужные значения по названиям полей и печатаем погоду
 def pogoda():
+
+    # отправляем запрос и записываем ответ от сервера в переменную, там данные по погоде на сейчас
+    res = requests.get('https://api.openweathermap.org/data/2.5/forecast?id=524901&appid=2745926c9f2ffb7903aec82510e1bc65&units=metric&lang=RU')
+    print('Заново запросил погоду')  # вывод в консоль для теста
+
+    data = res.json()  # Записываем в переменую пакет JSON, который получили - в нем есть поля и их значения
 
     temperatura = 'За бортом:  ' + '' + str(data['list'][0]['main']['temp']) + '' + ' по цельсию'
     veter = 'Ветрина:   ' + str(data['list'][0]['wind']['speed']) + ' м/с'
