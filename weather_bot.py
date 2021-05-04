@@ -19,7 +19,7 @@ def pogoda():
     temp_current = round(data['list'][0]['main']['temp'])  # температура сейчас в цифрах, округляем
     temp_zavtra = round(data['list'][1]['main']['temp'])  # температура завтра в цифрах, округляем
     temperatura = 'За бортом:  + ' + '' + str(temp_current) + '' + ' по цельсию'
-    veter = 'Ветрина:   ' + str(data['list'][0]['wind']['speed']) + ' м/с'
+    veter = 'Ветрина:   ' + str(round(data['list'][0]['wind']['speed'])) + ' м/с'
     osadki = 'Осадки:   ' + str(data['list'][0]['weather'][0]['description'])
     zavtra = 'Завтра:  + ' + str(temp_zavtra) + ' по цельсию'
     result = temperatura + '\n' + veter + '\n' + osadki + '\n' + zavtra
