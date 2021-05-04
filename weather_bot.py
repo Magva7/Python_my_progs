@@ -1,50 +1,41 @@
 import requests
 # import pytelegrambotapi
 import telebot
-# import time
-# while True:
-#     time.sleep(60)
 
-    #возможно стоит писать await asyncio.sleep(60)
+# возможно стоит писать await asyncio.sleep(60)
 
 # appid = "2745926c9f2ffb7903aec82510e1bc65"  # мой id
-
-#посылаем запрос раз в 10 минут, чтобы данные свежие были
-
-
-
-
-
 
 # print(result.text)  # тестовый вывод - смотрим, что нам вернул сайт
 
 # получаем нужные значения по названиям полей и печатаем погоду
 def pogoda():
-
     # отправляем запрос и записываем ответ от сервера в переменную, там данные по погоде на сейчас
     res = requests.get('https://api.openweathermap.org/data/2.5/forecast?id=524901&appid=2745926c9f2ffb7903aec82510e1bc65&units=metric&lang=RU')
     print('Заново запросил погоду')  # вывод в консоль для теста
 
     data = res.json()  # Записываем в переменую пакет JSON, который получили - в нем есть поля и их значения
 
-    temperatura = 'За бортом:  ' + '' + str(data['list'][0]['main']['temp']) + '' + ' по цельсию'
+    temp_current = round(data['list'][0]['main']['temp'])  # температура сейчас в цифрах, округляем
+    temp_zavtra = round(data['list'][1]['main']['temp'])  # температура завтра в цифрах, округляем
+    temperatura = 'За бортом:  + ' + '' + str(temp_current) + '' + ' по цельсию'
     veter = 'Ветрина:   ' + str(data['list'][0]['wind']['speed']) + ' м/с'
-    vidimost = 'Видимость:   ' + str(data['list'][0]['weather'][0]['description'])
-    zavtra = 'Завтра:  ' +  str(data['list'][1]['main']['temp']) + ' по цельсию'
-    result = temperatura + '\n' + veter + '\n' + vidimost + '\n' + zavtra
+    osadki = 'Осадки:   ' + str(data['list'][0]['weather'][0]['description'])
+    zavtra = 'Завтра:  + ' + str(temp_zavtra) + ' по цельсию'
+    result = temperatura + '\n' + veter + '\n' + osadki + '\n' + zavtra
     return result
 
-
-#Бот
-#токен: 1706338684:AAGojuK3Xw50cqr1osXwC6uvTRql0gQ-5cw
+# Бот
+# токен: 1706338684:AAGojuK3Xw50cqr1osXwC6uvTRql0gQ-5cw
 bot = telebot.TeleBot('1706338684:AAGojuK3Xw50cqr1osXwC6uvTRql0gQ-5cw')
+
 
 @bot.message_handler(commands=['start'])  # прослушивание команды start
 def send_welcome(message):  # приветственное сообщение
-    if(message.from_user.first_name=='Magv'):
+    if (message.from_user.first_name == 'Magv'):
         bot.reply_to(message, f'Привет, создатель, погодку показать?')
 
-    elif(message.from_user.first_name=='Melyashova'):
+    elif (message.from_user.first_name == 'Melyashova'):
         bot.reply_to(message, f'Привет сестрам, погоду показать?')
 
     elif (message.from_user.first_name == 'LitlBro'):
@@ -65,17 +56,21 @@ def send_welcome(message):  # приветственное сообщение
         bot.reply_to(message, f'Здорово, бро, пока я умею здороваться и показывать погоду, чтоб глянуть погоду, напиши погода, кстати как тя зовут?')
     # bot.reply_to(message, f'Здорово, бро, {message.from_user.first_name}')
     print(message.from_user.first_name)
+
+
 @bot.message_handler(commands=['help'])  # прослушивание команд help
 def send_welcome(message):  # приветственное сообщение
-        bot.reply_to(message, f'Чтоб глянуть погоду, напиши погода')
-    # bot.reply_to(message, f'Здорово, бро, {message.from_user.first_name}')
+    bot.reply_to(message, f'Чтоб глянуть погоду, напиши погода')
+
+
+# bot.reply_to(message, f'Здорово, бро, {message.from_user.first_name}')
 
 @bot.message_handler(content_types=['text'])  # прослушивание текстовых сообщений
 def get_text_messages(message):
     if message.text.lower() == "миша":
         bot.send_message(message.from_user.id, "Здорова, Палыч, погоду показать?")
     if message.text.lower() == "михаил":
-            bot.send_message(message.from_user.id, "Здорова, Палыч, погоду показать?")
+        bot.send_message(message.from_user.id, "Здорова, Палыч, погоду показать?")
     elif message.text.lower() == "юран":
         bot.send_message(message.from_user.id, "Приветствую, создатель")
     elif message.text == "/help":
@@ -87,5 +82,6 @@ def get_text_messages(message):
         bot.send_message(message.from_user.id, pogoda())
     else:
         bot.send_message(message.from_user.id, "Я тебя не понимаю. Напиши /help.")
+
 
 bot.polling(none_stop=True)
