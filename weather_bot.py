@@ -1,6 +1,8 @@
 import requests
 # import pytelegrambotapi
 import telebot
+from telebot import types
+
 
 # возможно стоит писать await asyncio.sleep(60)
 
@@ -25,8 +27,8 @@ def pogoda():
     result = temperatura + '\n' + veter + '\n' + osadki + '\n' + zavtra
     return result
 
-# Бот
-# токен: 1706338684:AAGojuK3Xw50cqr1osXwC6uvTRql0gQ-5cw
+
+# Бот токен: 1706338684:AAGojuK3Xw50cqr1osXwC6uvTRql0gQ-5cw
 bot = telebot.TeleBot('1706338684:AAGojuK3Xw50cqr1osXwC6uvTRql0gQ-5cw')
 
 
@@ -34,6 +36,16 @@ bot = telebot.TeleBot('1706338684:AAGojuK3Xw50cqr1osXwC6uvTRql0gQ-5cw')
 def send_welcome(message):  # приветственное сообщение
     if (message.from_user.first_name == 'Magv'):
         bot.reply_to(message, f'Привет, создатель, погодку показать?')
+        keyboard = types.InlineKeyboardMarkup()  # Техническая штука для кнопок - сами кнопки и обработчики
+
+        key_dacha = types.InlineKeyboardButton(text='Дача', callback_data='dacha')  # сама кнопка
+        keyboard.add(key_dacha)  # добавляем кнопку на экран
+
+        key_rayon = types.InlineKeyboardButton(text='Район', callback_data='rayon')
+        keyboard.add(key_rayon)
+
+        bot.send_message(message.from_user.id, text='Где показать погодку?', reply_markup=keyboard)  # Отправляем кнопки
+
 
     elif (message.from_user.first_name == 'Melyashova'):
         bot.reply_to(message, f'Привет сестрам, погоду показать?')
@@ -58,7 +70,7 @@ def send_welcome(message):  # приветственное сообщение
     print(message.from_user.first_name)
 
 
-@bot.message_handler(commands=['help'])  # прослушивание команд help
+@bot.message_handler(commands=['help'])  # прослушивание команды help
 def send_welcome(message):  # приветственное сообщение
     bot.reply_to(message, f'Чтоб глянуть погоду, напиши погода')
 
@@ -84,4 +96,13 @@ def get_text_messages(message):
         bot.send_message(message.from_user.id, "Я тебя не понимаю. Напиши /help.")
 
 
-bot.polling(none_stop=True)
+@bot.callback_query_handler(func=lambda call: True)  # Прослушивание нажатий кнопок
+def callback_worker(call):  # Если нажали на одну из 12 кнопок — выводим гороскоп
+    if call.data == 'dacha':  # Формируем гороскоп
+        msg = '1'
+        # bot.send_message(call.message.chat.id, msg)  # Отправляем текст в Телеграм
+        bot.send_message(call.message.chat.id, f'На дачке ща: ', msg)
+        # bot.reply_to(message, f'На дачке ща: 'б)
+
+
+bot.polling(none_stop=True, interval=0)
