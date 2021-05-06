@@ -5,8 +5,12 @@ from telebot import types
 
 # appid = "2745926c9f2ffb7903aec82510e1bc65"  # мой id для погоды на openweathermap.org
 
-koord_dacha = 'https://api.openweathermap.org/data/2.5/forecast?id=524901&appid=2745926c9f2ffb7903aec82510e1bc65&units=metric&lang=RU'  # координаты места
-
+# координаты места
+koord_dacha = 'https://api.openweathermap.org/data/2.5/forecast?id=548410&appid=2745926c9f2ffb7903aec82510e1bc65&units=metric&lang=RU'
+# koord_dacha_lat_lon = 'https://api.openweathermap.org/data/2.5/forecast?lat=54&lon=34&appid=2745926c9f2ffb7903aec82510e1bc65&units=metric&lang=RU'
+koord_moscow = 'https://api.openweathermap.org/data/2.5/forecast?id=524901&appid=2745926c9f2ffb7903aec82510e1bc65&units=metric&lang=RU'
+# pro.openweathermap.org/data/2.5/forecast/hourly?lat={lat}&lon={lon}&appid={API key}
+koord_rayon = 'https://api.openweathermap.org/data/2.5/forecast?lat=55.83950537444567&lon=37.507909885375916&appid=2745926c9f2ffb7903aec82510e1bc65&units=metric&lang=RU'
 
 # функция принимает координаты места и запрашивает погоду и возвращает данные, которые потом будем распарсивать
 def zapros_pogody(koord):
@@ -58,8 +62,12 @@ def send_welcome(message):  # приветственное сообщение
 def get_text_messages(message):
     if message.text.lower() == "миша":
         bot.send_message(message.from_user.id, "Здорова, Палыч, погоду показать?")
+    elif message.text.lower() == "1":  # если пришло 1
+        bot.send_message(message.from_user.id, zapros_pogody(koord_rayon))
+        print('Кто написал:', message.from_user.first_name, '-', message.from_user.id, 'что написал:', message.text)
     elif message.text.lower() == "2":  # если пришло 2
         bot.send_message(message.from_user.id, zapros_pogody(koord_dacha))  # запускается функция, которая запрашивает и выдает погоду, в нее передаем координаты дачи
+        print('Кто написал:', message.from_user.first_name, '-', message.from_user.id, 'что написал:', message.text)
     # elif message.text.lower() == "погода":
     #     bot.send_message(message.from_user.id, zapros_pogody())
     else:
@@ -69,9 +77,12 @@ def get_text_messages(message):
 @bot.callback_query_handler(func=lambda call: True)  # Прослушивание нажатий кнопок
 def callback_worker(call):  # Прослушивание нажатий кнопок
     if call.data == 'dacha':  # Нажата кнопка дача
-
         msg_dacha = 'Cейчас:  ' + '\n' + '\n' + zapros_pogody(koord_dacha) + '\n' + '\n' + 'Чтобы обновить, напиши 2'  # сообщение, которое отправится
         bot.send_message(call.message.chat.id, msg_dacha)  # Отправляем текст в Телеграм
+        print('Кто:', call.message.chat.id, '-', 'какую кнопку нажал:', call.data)
 
-
+    if call.data == 'rayon':  # Нажата кнопка район
+        msg_rayon = 'Cейчас:  ' + '\n' + '\n' + zapros_pogody(koord_rayon) + '\n' + '\n' + 'Чтобы обновить, напиши 2'  # сообщение, которое отправится
+        bot.send_message(call.message.chat.id, msg_rayon)  # Отправляем текст в Телеграм
+        print('Кто:', call.message.chat.id, '-', 'какую кнопку нажал:', call.data)
 bot.polling(none_stop=True, interval=0)
