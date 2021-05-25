@@ -1,6 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
-import lxml
+import lxml  # pip install lxml
 
 resp = requests.get('https://wikipedia.org/')  # запрашиваем гл. стр. вики
 html = resp.text  # сохраняем страницу в переменной
