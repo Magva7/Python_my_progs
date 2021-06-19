@@ -30,7 +30,7 @@ while current_strok_number != strok_vsego:
     text += str(' ' * (strok_vsego - current_strok_number))
     text += '\n'  # добавляем в конце перенос строки
 
-current_strok_number += 1  # увеличиваем номер текущей строки
+# current_strok_number += 1  # увеличиваем номер текущей строки
 
 print(text)
 
