@@ -11,3 +11,4 @@ elif deystvie == '-':
     print(c)
 else:
     print('Выбрано неверное действие')
+input()
